@@ -21,27 +21,41 @@ public class Tunel {
     }
 
     public synchronized boolean add(Ship element) {
-        if (shipsCounter < maxShipsInTunel) {
-            store.add(element);
-            System.out.println(store.size() + "+ Судно прибыло в тунель: " + Thread.currentThread().getName());
-            shipsCounter++;
-        } else {
-            System.out.println(store.size() + "+ Нет место для судно в тунеле: "+ Thread.currentThread().getName());
-            return false;
+
+        try {
+            if (shipsCounter < maxShipsInTunel) {
+                notifyAll();
+                store.add(element);
+                System.out.println(store.size() + "+ Судно прибыло в тунель: " + Thread.currentThread().getName());
+                shipsCounter++;
+            } else {
+                System.out.println(store.size() + "> Нет место для судно в тунеле: " + Thread.currentThread().getName());
+                wait();
+                return false;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return true;
     }
 
     public synchronized Ship get(String name) {
-        if (shipsCounter > minShipsInTunel) {
-            for (Ship ship : store) {
-                if (ship.getName().equals(name)) {
-                    shipsCounter--;
-                    System.out.println(store.size() + "- Судно взято из тунеля: " + Thread.currentThread().getName());
-                    store.remove(ship);
-                    return ship;
+        try {
+            if (shipsCounter > minShipsInTunel) {
+                notifyAll();
+                for (Ship ship : store) {
+                    if (ship.getName().equals(name)) {
+                        shipsCounter--;
+                        System.out.println(store.size() + "- Судно взято из тунеля: " + Thread.currentThread().getName());
+                        store.remove(ship);
+                        return ship;
+                    }
                 }
             }
+            System.out.println("0 < Суден нет в тунеле");
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return null;
     }

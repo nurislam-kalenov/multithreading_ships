@@ -16,13 +16,12 @@ public class Main {
         Tunel tunel = new Tunel();
 
         ShipGenerator shipGenerator = new ShipGenerator(tunel);
-        BreadPier breadPier = new BreadPier(tunel);
+
+        BreadPier breadPier1 = new BreadPier(tunel);
 
         ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         service.execute(shipGenerator);
-        service.execute(breadPier);
-
-
+        service.execute(breadPier1);
 
         service.shutdown();
 

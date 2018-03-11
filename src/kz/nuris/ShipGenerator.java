@@ -15,15 +15,12 @@ public class ShipGenerator implements Runnable {
 
     @Override
     public void run() {
-        boolean isHavePlace = true;
         while (true) {
             try {
-                Thread.sleep(1000);
-                isHavePlace = tunel.add(new Ship(10, "Bread"));
-                if (!isHavePlace) {
-
-                }
-                Thread.sleep(1000);
+                Thread.currentThread().setName("Поток генеретор коробля");
+                //Время на каждую генерацию судно.
+                Thread.sleep(2000);
+                tunel.add(new Ship(10, "Bread"));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
