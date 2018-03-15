@@ -1,32 +1,43 @@
 package kz.nuris.ships;
 
+import kz.nuris.ships.types.Size;
+import kz.nuris.ships.types.Type;
+
 /**
  * Created by User on 11.03.2018.
  */
 public class Ship {
+    private int count;
+    private Size size;
+    private Type type;
 
-    public Ship(int count, String name) {
-        this.count = count;
-        this.name = name;
+
+    public Ship(Size size, Type type) {
+        this.size = size;
+        this.type = type;
+    }
+
+
+    public void add(int count) {
+        this.count += count;
+    }
+
+    public boolean countCheck() {
+        if (count >= size.getValue()) {
+            return false;
+        }
+        return true;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public int getCount() {
         return count;
     }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    private int count;
-    private String name;
-
 }
