@@ -1,4 +1,4 @@
-package kz.nuris.ships.types;
+package kz.nuris.ships;
 
 /**
  * Created by User on 15.03.2018.

@@ -1,7 +1,7 @@
 package kz.nuris;
 
 import kz.nuris.ships.Ship;
-import kz.nuris.ships.types.Type;
+import kz.nuris.ships.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Tunel {
             if (shipsCounter < maxShipsInTunel) {
                 notifyAll();
                 store.add(element);
-                System.out.println(store.size() + "+ Судно прибыло в тунель: " + Thread.currentThread().getName());
+                System.out.println(store.size() + "+ Судно прибыло в тунель: " +element.getType() + " " +element.getSize() +" " + Thread.currentThread().getName());
                 shipsCounter++;
 
             } else {

@@ -1,8 +1,5 @@
 package kz.nuris.ships;
 
-import kz.nuris.ships.types.Size;
-import kz.nuris.ships.types.Type;
-
 /**
  * Created by User on 11.03.2018.
  */
@@ -29,15 +26,15 @@ public class Ship {
         return true;
     }
 
-    public Size getSize() {
-        return size;
+    public int getCount() {
+        return count;
     }
 
     public Type getType() {
         return type;
     }
 
-    public int getCount() {
-        return count;
+    public Size getSize() {
+        return size;
     }
 }
