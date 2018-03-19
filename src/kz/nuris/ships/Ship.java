@@ -1,7 +1,10 @@
 package kz.nuris.ships;
 
+import kz.nuris.ships.types.Size;
+import kz.nuris.ships.types.Type;
+
 /**
- * Created by User on 11.03.2018.
+ * Created by Nurislam Kalenov.
  */
 public class Ship {
     private int count;

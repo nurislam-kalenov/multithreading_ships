@@ -1,32 +1,34 @@
 package kz.nuris;
 
-import kz.nuris.ships.Type;
+import kz.nuris.ships.types.Type;
+import kz.nuris.tasks.PierLoader;
+import kz.nuris.tasks.ShipGenerator;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by User on 11.03.2018.
+ * Created by Nurislam Kalenov.
  */
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Доступное количество ядер: " + Runtime.getRuntime().availableProcessors());
+        System.out.println("Available number of cores: " + Runtime.getRuntime().availableProcessors());
 
-        Tunel tunel = new Tunel();
+        Tunnel tunnel = new Tunnel();
 
-        ShipGenerator shipGenerator1 = new ShipGenerator(tunel ,"1" ,10);
+        ShipGenerator shipGenerator = new ShipGenerator(tunnel, 10);
 
-        Pier pier1 = new Pier(tunel , Type.DRESS,"1");
-        Pier pier2 = new Pier(tunel ,Type.BANANA ,"2");
-        Pier pier3 = new Pier(tunel , Type.MEAL,"3");
+        PierLoader pierLoader1 = new PierLoader(tunnel, Type.DRESS);
+        PierLoader pierLoader2 = new PierLoader(tunnel, Type.BANANA);
+        PierLoader pierLoader3 = new PierLoader(tunnel, Type.MEAL);
 
         ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-        service.execute(shipGenerator1);
-        service.execute(pier1);
-        service.execute(pier2);
-        service.execute(pier3);
+        service.execute(shipGenerator);
+        service.execute(pierLoader1);
+        service.execute(pierLoader2);
+        service.execute(pierLoader3);
 
         service.shutdown();
 

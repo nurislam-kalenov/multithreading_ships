@@ -1,15 +1,15 @@
 package kz.nuris;
 
 import kz.nuris.ships.Ship;
-import kz.nuris.ships.Type;
+import kz.nuris.ships.types.Type;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by User on 11.03.2018.
+ * Created by Nurislam Kalenov.
  */
-public class Tunel {
+public class Tunnel {
 
     private List<Ship> store;
     private static final int maxShipsInTunel = 5;
@@ -17,7 +17,7 @@ public class Tunel {
     private int shipsCounter = 0;
 
 
-    public Tunel() {
+    public Tunnel() {
         store = new ArrayList<>();
     }
 
@@ -27,11 +27,12 @@ public class Tunel {
             if (shipsCounter < maxShipsInTunel) {
                 notifyAll();
                 store.add(element);
-                System.out.println(store.size() + "+ Судно прибыло в тунель: " +element.getType() + " " +element.getSize() +" " + Thread.currentThread().getName());
+                String info = String.format("%s + The ship arrived in the tunnel: %s %s %s", store.size(), element.getType(), element.getSize(), Thread.currentThread().getName());
+                System.out.println(info);
                 shipsCounter++;
 
             } else {
-                System.out.println(store.size() + "> Нет место для судно в тунеле: " + Thread.currentThread().getName());
+                System.out.println(store.size() + "> There is no place for a ship in the tunnel: " + Thread.currentThread().getName());
                 wait();
                 return false;
             }
@@ -50,14 +51,14 @@ public class Tunel {
                 for (Ship ship : store) {
                     if (ship.getType() == shipType) {
                         shipsCounter--;
-                        System.out.println(store.size() + "- Судно взято из тунеля: " + Thread.currentThread().getName());
+                        System.out.println(store.size() + "- The ship is taken from the tunnel: " + Thread.currentThread().getName());
                         store.remove(ship);
                         return ship;
                     }
                 }
             }
 
-            System.out.println("0 < Суден нет в тунеле");
+            System.out.println("0 < There are no ships in the tunnel");
             wait();
 
         } catch (InterruptedException e) {

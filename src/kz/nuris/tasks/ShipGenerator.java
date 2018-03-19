@@ -1,32 +1,31 @@
-package kz.nuris;
+package kz.nuris.tasks;
 
+import kz.nuris.Tunnel;
 import kz.nuris.ships.Ship;
-import kz.nuris.ships.Size;
-import kz.nuris.ships.Type;
+import kz.nuris.ships.types.Size;
+import kz.nuris.ships.types.Type;
 
 import java.util.Random;
 
 /**
- * Created by User on 11.03.2018.
+ * Created by Nurislam Kalenov.
  */
 public class ShipGenerator implements Runnable {
-    private Tunel tunel;
-    private String threadName;
+    private Tunnel tunnel;
     private int shipCount;
 
-    public ShipGenerator(Tunel tunel, String threadName , int shipCount) {
-        this.tunel = tunel;
-        this.threadName = threadName;
+    public ShipGenerator(Tunnel tunnel, int shipCount) {
+        this.tunnel = tunnel;
         this.shipCount = shipCount;
     }
 
     @Override
     public void run() {
-        int count =0;
-        while (count <shipCount) {
-            Thread.currentThread().setName("Поток генеретор коробля " + threadName);
+        int count = 0;
+        while (count < shipCount) {
+            Thread.currentThread().setName(" Generator ship");
             count++;
-            tunel.add(new Ship(getRandomSize(), getRandomType()));
+            tunnel.add(new Ship(getRandomSize(), getRandomType()));
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -36,12 +35,12 @@ public class ShipGenerator implements Runnable {
         }
     }
 
-    private Type getRandomType(){
+    private Type getRandomType() {
         Random random = new Random();
         return Type.values()[random.nextInt(Type.values().length)];
     }
 
-    private Size getRandomSize(){
+    private Size getRandomSize() {
         Random random = new Random();
         return Size.values()[random.nextInt(Size.values().length)];
     }
